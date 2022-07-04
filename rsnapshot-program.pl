@@ -63,7 +63,7 @@ my $have_lchown = 0;
 $| = 1;
 
 # version of rsnapshot
-my $VERSION = '@VERSION@';
+my $VERSION = '1.4.4';
 
 # command or interval to execute (first cmd line arg)
 my $cmd;
@@ -415,8 +415,8 @@ sub HELP_MESSAGE {
 sub find_config_file {
 
 	# autoconf variables (may have too many slashes)
-	my $autoconf_sysconfdir = '@sysconfdir@';
-	my $autoconf_prefix     = '@prefix@';
+	my $autoconf_sysconfdir = '${prefix}/etc';
+	my $autoconf_prefix     = '/usr/local';
 	my $default_config_file = '/etc/rsnapshot.conf';
 
 	# consolidate multiple slashes
@@ -3208,7 +3208,8 @@ sub handle_interval {
 			# start the delete
 			display_rm_rf("$config_vars{'snapshot_root'}/_delete.$$");
 			if (0 == $test) {
-				my $result = rm_rf("$config_vars{'snapshot_root'}/_delete.$$");
+				#my $result = rm_rf("$config_vars{'snapshot_root'}/_delete.$$");
+				my $result = 1;
 				if (0 == $result) {
 					bail("Error! rm_rf(\"$config_vars{'snapshot_root'}/_delete.$$\")\n");
 				}
